@@ -52,11 +52,7 @@
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
-   .wrap {
-    width: 100%;
-    padding: 0 40px 80px; /* side spacing மட்டும் */
-    background: transparent; /* remove white box feel */
-  }
+
     a { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
     img { display: block; max-width: 100%; }
@@ -138,7 +134,6 @@
     }
     .nav-links a:hover { color: var(--rose-deep); }
     .nav-links a:hover::after { transform: scaleX(1); }
-
     .nav-right {
       display: flex;
       align-items: center;
@@ -858,6 +853,136 @@
 .social-icons a:nth-child(2):hover { background:#1877F2; } /* Facebook */
 .social-icons a:nth-child(3):hover { background:#000000; } /* Threads */
 .social-icons a:nth-child(4):hover { background:#B85C56; } /* Mail */
+.plan-card {
+  border: 1px solid #B85C56;
+  padding: 20px;
+  text-align: center;
+  border-radius: 12px;
+  background: white;
+  transition: 0.3s;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.plan-card .price {
+  font-weight: 600;
+  color: #B85C56;
+  margin: 10px 0;
+}
+
+.plan-card .desc {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+/* Highlight Premium Plan */
+.plan-card.highlight {
+  border: 2px solid #D4766F;
+  transform: scale(1.05);
+}
+/* ── CONTAINER ── */
+.pricing-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+/* ── CARD ── */
+.pricing-card {
+  background: #ffffff;
+  border: 0.5px solid rgba(42, 31, 26, 0.12);
+  border-radius: 18px;
+  padding: 32px 24px;
+  text-align: center;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+}
+
+/* remove all highlight / featured styling */
+.pricing-card.pricing-highlight {
+  border: 0.5px solid rgba(42, 31, 26, 0.12);
+  box-shadow: none;
+  transform: none;
+}
+
+.pricing-card.pricing-highlight:hover {
+  transform: translateY(-4px);
+}
+
+.pricing-card.pricing-highlight::before {
+  display: none;
+}
+
+/* ── TITLE ── */
+.pricing-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2A1F1A;
+  margin: 0 0 10px;
+}
+
+/* ── PRICE ── */
+.pricing-price {
+  font-size: 22px;
+  font-weight: 600;
+  color: #B85C56;
+  margin: 0 0 16px;
+}
+
+/* ── FEATURES ── */
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pricing-features li {
+  font-size: 13.5px;
+  color: #5A4035;
+  line-height: 1.5;
+}
+
+/* ── BUTTON ── */
+.pricing-btn {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #B85C56;
+  color: #ffffff;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.pricing-btn:hover  { background: #9E3D37; }
+.pricing-btn:active { transform: scale(0.97); }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .pricing-container {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    padding: 24px 16px;
+  }
+}
   </style>
 </head>
 <body>
@@ -903,7 +1028,7 @@
   </span>
    
 <div id="userMenu" style="position:relative;">
-   <button onclick="toggleMenu()" id="loginBtn" class="btn-ghost">Login</button>
+   <button onclick="handleUser()" id="loginBtn" class="btn-ghost">Login</button>
 
   <div id="dropdown" style="
     display:none;
@@ -1188,9 +1313,8 @@
       <button class="padd" onclick="addCart(this)">+</button>
     </div>
   </div>
-</div>
   </div>
-
+</div>
   <!-- SUBSCRIPTION -->
   <div id="subscribe" class="sub-banner">
     <div>
@@ -1207,6 +1331,42 @@
       </div>
     <button class="btn-fill" onclick="openPlans()">Explore Plans</button>    </div>
     <div class="sub-visual">&#127803;</div>
+      <div class="pricing-container">
+
+  <div class="pricing-card">
+    <h3 class="pricing-title">🌸 Basic</h3>
+    <p class="pricing-price">₹199 / month</p>
+    <ul class="pricing-features">
+      <li>✔ Weekly fresh flowers</li>
+      <li>✔ Standard delivery</li>
+      <li>✔ Perfect for home use</li>
+    </ul>
+    <button class="pricing-btn" data-plan="Basic">Start Basic</button>
+  </div>
+
+  <div class="pricing-card pricing-highlight">
+    <h3 class="pricing-title">💎 Premium</h3>
+    <p class="pricing-price">₹399 / month</p>
+    <ul class="pricing-features">
+      <li>✔ Flowers 2× per week</li>
+      <li>✔ Priority delivery 🚚</li>
+      <li>✔ Free greeting card</li>
+    </ul>
+    <button class="pricing-btn" data-plan="Premium">Go Premium</button>
+  </div>
+
+  <div class="pricing-card">
+    <h3 class="pricing-title">👑 Advanced</h3>
+    <p class="pricing-price">₹699 / month</p>
+    <ul class="pricing-features">
+      <li>✔ Daily fresh flowers 🌸</li>
+      <li>✔ Premium exotic blooms</li>
+      <li>✔ VIP fast delivery</li>
+    </ul>
+    <button class="pricing-btn" data-plan="Advanced">Get Advanced</button>
+  </div>
+
+</div>
   </div>
 
   <!-- FEATURES -->
@@ -1310,7 +1470,7 @@
   <!-- CONTACT -->
   <div class="foot-col">
     <h4>Contact</h4>
-    <a href="tel:+918072050974">📞 +91 80720 50974</a>
+    <a href="tel:+91123456789">📞 +91 12345 67899</a>
     <a>📍 Coimbatore, Tamil Nadu</a>
   </div>
 </footer>
@@ -1324,57 +1484,54 @@
 
 <div class="toast" id="toast"></div>
 
-  </div>
-</div>
-
 <!-- You can continue adding more product cards here like Rose, Lotus, Hibiscus, etc. -->
 
 </div> <!-- End of Grid -->
 
 </div> <!-- End of Wrap -->
-<div id="plansBox" style="
+
+<div id="loginBox" style="
 position:fixed;
 top:50%; left:50%;
 transform:translate(-50%,-50%);
 background:white;
-padding:30px;
-border-radius:16px;
+padding:25px;
+border-radius:12px;
 display:none;
-z-index:999;
-width:90%;
-max-width:520px;
-box-shadow:0 10px 40px rgba(0,0,0,0.2);
+z-index:1000;
+width:300px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+text-align:center;
 ">
 
-<h2 style="margin-bottom:20px; text-align:center;">
-  Choose Your Plan 🌷
-</h2>
+<h3>Login 🌸</h3>
 
-<div style="display:flex; flex-direction:column; gap:12px;">
+<input id="username" placeholder="Enter Name"
+style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ccc;">
 
-  <div class="plan-card" onclick="selectPlan('Basic')" style="padding:15px; border:1px solid #ddd; border-radius:10px; cursor:pointer;">
-    <b>Basic</b> – ₹299/week <br>
-    <small>1 bouquet • Home delivery</small>
-  </div>
+<input id="email" placeholder="Enter Email"
+style="width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;">
 
-  <div class="plan-card" onclick="selectPlan('Standard')" style="padding:15px; border:2px solid #B85C56; border-radius:10px; cursor:pointer; background:#fff5f4;">
-    <b>Standard ⭐</b> – ₹499/week <br>
-    <small>2 bouquets • Priority delivery • Free note</small>
-  </div>
+<button onclick="login()" class="btn-fill" style="width:100%;">Login</button>
 
-  <div class="plan-card" onclick="selectPlan('Premium')" style="padding:15px; border:1px solid #ddd; border-radius:10px; cursor:pointer;">
-    <b>Premium</b> – ₹799/week <br>
-    <small>3 bouquets • Same-day • Custom flowers</small>
-  </div>
-
-</div>
-
-<div style="margin-top:20px; text-align:center;">
-  <button onclick="closePlans()" class="btn-ghost">Close</button>
-</div>
+<br><br>
+<button onclick="closeLogin()" class="btn-ghost">Close</button>
 
 </div>
 <script>
+function openPlans() {
+  const user = localStorage.getItem("user");
+
+  if (!user) {
+    openLogin(); // first login
+  } else {
+    closeLogin();
+    document.getElementById('plansBox').style.display = 'block';
+  }
+}
+function closePlans() {
+  document.getElementById('plansBox').style.display = 'none';
+}
 let cart = [];
 let favs = [];
 
@@ -1562,11 +1719,7 @@ function handleUser(){
   const user = localStorage.getItem("user");
 
   if(user){
-    if(confirm("Logout?")){
-      localStorage.removeItem("user");
-      showToast("Logged out");
-      document.getElementById("loginBtn").innerText = "Login";
-    }
+    toggleMenu(); // ✅ show dropdown instead of confirm
   } else {
     openLogin();
   }
@@ -1576,8 +1729,8 @@ function login(){
   const name = document.getElementById("username").value.trim();
   const email = document.getElementById("email").value.trim();
 
-  if(!email){
-    showToast("Enter email ❗");
+  if(!email || !email.includes("@")){
+    showToast("Enter valid email ❗");
     return;
   }
 
@@ -1590,9 +1743,11 @@ function login(){
 
   showToast("Welcome " + userData.name + " 🌸");
 
-  document.getElementById("loginBtn").innerText = "Hi, " + userData.name;
-
+  updateUserUI();
   closeLogin();
+
+  // Optional (enable later)
+  // document.getElementById('plansBox').style.display = 'block';
 }
 function openLogin(){
   document.getElementById("loginBox").style.display = "block";
@@ -1625,15 +1780,25 @@ document.getElementById("overlay").onclick = function(){
 }
 function toggleMenu(){
   const drop = document.getElementById("dropdown");
-  drop.style.display = drop.style.display === "block" ? "none" : "block";
+  drop.style.display = (drop.style.display === "block") ? "none" : "block";
 }
+function updateUserUI() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const btn = document.getElementById("loginBtn");
 
+  if (user) {
+    btn.innerText = "Hi, " + user.name;
+  } else {
+    btn.innerText = "Login";
+  }
+}
 function logout(){
   localStorage.removeItem("user");
   showToast("Logged out 👋");
-  document.getElementById("loginBtn").innerText = "Login";
+
+  updateUserUI(); // ✅ reset button
+
   document.getElementById("dropdown").style.display = "none";
-  openLogin(); // reopen login form
 }
 function goCheckout(){
   if(cart.length === 0){
@@ -1642,35 +1807,19 @@ function goCheckout(){
   }
   window.location.href = "checkout.html";
 }
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll("[data-plan]");
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const selectedPlan = btn.getAttribute("data-plan");
+      localStorage.setItem("selectedPlan", selectedPlan);
+      alert(selectedPlan + " plan selected ✅");
+    });
+  });
+});
 
 </script>
-<div id="loginBox" style="
-position:fixed;
-top:50%; left:50%;
-transform:translate(-50%,-50%);
-background:white;
-padding:25px;
-border-radius:12px;
-display:none;
-z-index:999;
-width:300px;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
-text-align:center;
-">
 
-<h3>Login 🌸</h3>
-
-<input id="username" placeholder="Enter Name"
-style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ccc;">
-
-<input id="email" placeholder="Enter Email"
-style="width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;">
-
-<button onclick="login()" class="btn-fill" style="width:100%;">Login</button>
-
-<br><br>
-<button onclick="closeLogin()" class="btn-ghost">Close</button>
-
-</div>
 </body>
 </html>
